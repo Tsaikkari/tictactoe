@@ -39,8 +39,8 @@ def win(board_list, char):
         if board_list[a] != '_' and board_list[a] == board_list[b] and board_list[a] == board_list[c]:
             return True
         i += 1
-
-    if board_list.index('_') == -1:
+   
+    if board_list.count('_') == 0:
         print("It's a draw")
     else: 
         if char == 'X':
@@ -117,7 +117,7 @@ def next(board_list, char):
     position = get_char()
     board_list = insert_input(position, board_list)
     add_char(board, board_list, char)
-    
+
 next(board_list, 'X')
 
 
