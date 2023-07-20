@@ -103,18 +103,18 @@ def insert_input(pos, board):
             board_list_copy[i] = '0.1'
         elif i == 2 and pos == '0.2':
             board_list_copy[i] = '0.2'
-        elif i == 3 and pos == '1.1':
+        elif i == 3 and pos == '1.0':
+            board_list_copy[i] = '1.0'
+        elif i == 4 and pos == '1.1':
             board_list_copy[i] = '1.1'
-        elif i == 4 and pos == '1.2':
+        elif i == 5 and pos == '1.2':
             board_list_copy[i] = '1.2'
-        elif i == 5 and pos == '1.3':
-            board_list_copy[i] = '1.3'
-        elif i == 6 and pos == '2.1':
+        elif i == 6 and pos == '2.0':
+            board_list_copy[i] = '2.0'
+        elif i == 7 and pos == '2.1':
             board_list_copy[i] = '2.1'
-        elif i == 7 and pos == '2.2':
+        elif i == 8 and pos == '2.2':
             board_list_copy[i] = '2.2'
-        elif i == 8 and pos == '2.3':
-            board_list_copy[i] = '2.3'
     return board_list_copy
 
 def next(board_list, char):
