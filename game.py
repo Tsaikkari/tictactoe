@@ -57,18 +57,21 @@ def add_char(board, board_list_copy, char):
         if len(item) > 1:
             row_no = int(item[0])
             column_no = int(item[2])
-
+            # loop over the board
             for i in range(len(board)):
                 for j in range(len(board[i])):
                     if i == row_no and j == column_no:
+                        # add char to the board
                         board[i][j] = char
+                    # add every item to the list
                     modified_list.append(board[i][j])
+                    print_board(board)
                     j += 1
                 i += 1
 
-    if win(modified_list, char):
-        print(f"The winner is: {char}")
-        return 
+            if win(modified_list, char):
+                print(f"The winner is: {char}")
+                return 
 
 def print_board(board):
     result = ""
@@ -76,23 +79,15 @@ def print_board(board):
         if i % 3 == 0:
             result += "\n"
         for j in range(len(board[i])):
-            if type(board[i][j]) == str:
-                if j % 3 == 0 and j != "_":
-                    result += f" {str(board[i][j])} "
-                else:
-                    result += f"{str(board[i][j])} "
-            else: 
-                if j % 3 == 0:
-                    result += " "
-                result += "_ "
+            result += f" {(board[i][j])} "
             j += 1
         result += "\n"
         i += 1
     print(result)
      
 def get_char():
-    pos = input("Enter the square position, for example 1.1 :")
-    return pos
+    coord = input("Enter the coordinate, for example 1.1 :")
+    return coord
 
 def insert_input(pos, board):
     board_list_copy = copy.deepcopy(board)
@@ -119,11 +114,10 @@ def insert_input(pos, board):
 
 def next(board_list, char):
     print_board(board)
-    pos = get_char()
-    board_list_copy = insert_input(pos, board_list)
-    if board_list_copy != []:
-        add_char(board, board_list_copy, char)
-
+    position = get_char()
+    board_list = insert_input(position, board_list)
+    add_char(board, board_list, char)
+    
 next(board_list, 'X')
 
 
