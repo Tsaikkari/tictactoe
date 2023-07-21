@@ -1,4 +1,5 @@
 import copy
+from draw_board import print_board
 
 board_list = ['', '', '', '', '', '', '', '', '']
 board  = [
@@ -81,18 +82,6 @@ def add_char(item, board, board_list, char, modified_list):
             modified_list.append(board[i][j])
             j += 1
         i += 1
-
-def print_board(board):
-    result = ""
-    for i in range(len(board)):
-        if i % 3 == 0:
-            result += "\n"
-        for j in range(len(board[i])):
-            result += f" {(board[i][j])} "
-            j += 1
-        result += "\n"
-        i += 1
-    print(result)
      
 def get_char():
     coord = input("Enter the coordinate, for example 1.1 :")
@@ -139,12 +128,4 @@ def next(board, board_list, char):
 
 # start the game
 next(board, board_list, 'X')
-
-
-
-     
-
-
-
-
 
