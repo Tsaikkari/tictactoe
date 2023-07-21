@@ -91,24 +91,27 @@ def get_char():
 # insert user input (position of the character) to a copy of the board_list
 def insert_input(pos, board_list):
     board_list_copy = copy.deepcopy(board_list)
-    if pos == '0.0':
-        board_list_copy[0] = pos
-    elif pos == '0.1':
-        board_list_copy[1] = pos
-    elif pos == '0.2':
-        board_list_copy[2] = pos
-    elif pos == '1.0':
-        board_list_copy[3] = pos
-    elif pos == '1.1':
-        board_list_copy[4] = pos
-    elif pos == '1.2':
-        board_list_copy[5] = pos
-    elif pos == '2.0':
-        board_list_copy[6] = pos
-    elif pos == '2.1':
-        board_list_copy[7] = pos
-    elif pos == '2.2':
-        board_list_copy[8] = pos
+    match pos:
+        case '0.0':
+            board_list_copy[0] = pos
+        case '0.1':
+            board_list_copy[1] = pos
+        case '0.2':
+            board_list_copy[2] = pos
+        case '1.0':
+            board_list_copy[3] = pos
+        case '1.1':
+            board_list_copy[4] = pos
+        case '1.2':
+            board_list_copy[5] = pos
+        case '2.0':
+            board_list_copy[6] = pos
+        case '2.1':
+            board_list_copy[7] = pos
+        case '2.2':
+            board_list_copy[8] = pos
+        case _:
+            print('Check out the input format')
     return board_list_copy
 
 def switch_turn(board, board_list, char):
