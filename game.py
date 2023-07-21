@@ -73,7 +73,6 @@ def add_char(board, board_list_copy, char):
                     j += 1
                 i += 1
 
-            # if true, announce the winner and end the game
             win(modified_list, char)
 
 def print_board(board):
@@ -119,10 +118,9 @@ def insert_input(pos, board_list):
 def switch_turn(board_list, char):
     if char == 'X':
         char = 'O'
-        next(board_list, char)
     else:
         char = 'X' 
-        next(board_list, char)
+    next(board_list, char)
 
 
 # main function
