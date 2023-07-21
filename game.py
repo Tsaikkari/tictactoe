@@ -37,20 +37,21 @@ def win(board_list, char):
         [a, b, c] = lines[i]
 
         if board_list[a] != '_' and board_list[a] == board_list[b] and board_list[a] == board_list[c]:
-            return True
+            # print out the final board
+            print_board(board)
+            print(f"The winner is: {char}")
+            return
         i += 1
-   
+    # if it's not a win it might be a draw
     if board_list.count('_') == 0:
+        # print out the final board
+        print_board(board)
         print("It's a draw")
     else: 
-        if char == 'X':
-            char = 'O'
-            next(board_list, char)
-        else:
-            # switch player
-            char = 'X' 
-            next(board_list, char)
+        # or switch player and continue
+        switch_turn(board_list, char)
 
+# modify the board list to include 'X' or 'O' depending on the user input coords
 def add_char(board, board_list_copy, char):
     modified_list = []
     for item in board_list_copy:
@@ -61,17 +62,19 @@ def add_char(board, board_list_copy, char):
             for i in range(len(board)):
                 for j in range(len(board[i])):
                     if i == row_no and j == column_no:
-                        # add char to the board
-                        board[i][j] = char
-                    # add every item to the list
+                        if board[i][j] != '_':
+                            print('A char already exists on that position')
+                            switch_turn(board_list, char=board[i][j])
+                        else:
+                            # add char to the board 
+                            board[i][j] = char
+                    # add every item to the list including the underscores
                     modified_list.append(board[i][j])
-                    print_board(board)
                     j += 1
                 i += 1
 
-            if win(modified_list, char):
-                print(f"The winner is: {char}")
-                return 
+            # if true, announce the winner and end the game
+            win(modified_list, char)
 
 def print_board(board):
     result = ""
@@ -89,8 +92,9 @@ def get_char():
     coord = input("Enter the coordinate, for example 1.1 :")
     return coord
 
-def insert_input(pos, board):
-    board_list_copy = copy.deepcopy(board)
+# insert user input (position of the character) to a copy of the board_list
+def insert_input(pos, board_list):
+    board_list_copy = copy.deepcopy(board_list)
     for i in range(len(board_list_copy)):
         if i == 0 and pos == '0.0':
             board_list_copy[i] = '0.0'
@@ -112,12 +116,23 @@ def insert_input(pos, board):
             board_list_copy[i] = '2.2'
     return board_list_copy
 
+def switch_turn(board_list, char):
+    if char == 'X':
+        char = 'O'
+        next(board_list, char)
+    else:
+        char = 'X' 
+        next(board_list, char)
+
+
+# main function
 def next(board_list, char):
     print_board(board)
     position = get_char()
-    board_list = insert_input(position, board_list)
-    add_char(board, board_list, char)
+    b_list = insert_input(position, board_list)
+    add_char(board, b_list, char)
 
+# start the game
 next(board_list, 'X')
 
 
