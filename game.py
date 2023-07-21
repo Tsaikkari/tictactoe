@@ -38,43 +38,49 @@ def win(board_list, char):
         [a, b, c] = lines[i]
 
         if board_list[a] != '_' and board_list[a] == board_list[b] and board_list[a] == board_list[c]:
-            # print out the final board
+            # print out the final board and end game
             print_board(board)
             print(f"The winner is: {char}")
             return
         i += 1
     # if it's not a win it might be a draw
     if board_list.count('_') == 0:
-        # print out the final board
+        # print out the final board and end game
         print_board(board)
         print("It's a draw")
+        return
     else: 
-        # or switch player and continue
-        switch_turn(board_list, char)
+        # or switch turns and continue
+        switch_turn(board, board_list, char)
 
 # modify the board list to include 'X' or 'O' on the user defined position on the board
-def add_char(board, board_list_copy, char):
+def modify_list(board, board_list, board_list_copy, char):
     modified_list = []
     for item in board_list_copy:
         if len(item) > 1:
-            row_no = int(item[0])
-            column_no = int(item[2])
-            # loop over the board
-            for i in range(len(board)):
-                for j in range(len(board[i])):
-                    if i == row_no and j == column_no:
-                        if board[i][j] != '_':
-                            print('A char already exists on that position')
-                            switch_turn(board_list, char=board[i][j])
-                        else:
-                            # add char to the board 
-                            board[i][j] = char
-                    # add every item to the list including the underscores
-                    modified_list.append(board[i][j])
-                    j += 1
-                i += 1
-
+            add_char(item, board, board_list, char, modified_list)
             win(modified_list, char)
+            
+def add_char(item, board, board_list, char, modified_list):
+    row_no = int(item[0])
+    column_no = int(item[2])
+    # loop over the board
+    for i in range(len(board)):
+        for j in range(len(board[i])):
+            if i == row_no and j == column_no:
+                if board[i][j] != '_':
+                    print('A char already exists on that position')
+                    if char == board[i][j]:
+                        next(board, board_list, char)
+                    else:
+                        switch_turn(board, board_list, char=board[i][j])
+                else:
+                    # add char to the board 
+                    board[i][j] = char
+            # add every item to the list including the underscores
+            modified_list.append(board[i][j])
+            j += 1
+        i += 1
 
 def print_board(board):
     result = ""
@@ -116,23 +122,23 @@ def insert_input(pos, board_list):
             board_list_copy[i] = '2.2'
     return board_list_copy
 
-def switch_turn(board_list, char):
+def switch_turn(board, board_list, char):
     if char == 'X':
         char = 'O'
     else:
         char = 'X' 
-    next(board_list, char)
+    next(board, board_list, char)
 
 
 # main function
-def next(board_list, char):
+def next(board, board_list, char):
     print_board(board)
     position = get_char()
     b_list = insert_input(position, board_list)
-    add_char(board, b_list, char)
+    modify_list(board, board_list, b_list, char)
 
 # start the game
-next(board_list, 'X')
+next(board, board_list, 'X')
 
 
 
