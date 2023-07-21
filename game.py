@@ -1,4 +1,5 @@
 import copy
+
 from draw_board import print_board
 
 board_list = ['', '', '', '', '', '', '', '', '']
@@ -22,7 +23,7 @@ board  = [
 char = ''
 
 # winning lines
-def win(board_list, char):
+def check_win(board_list, char):
     lines = [
         [0, 1, 2],
         [3, 4, 5],
@@ -60,7 +61,7 @@ def modify_list(board, board_list, board_list_copy, char):
     for item in board_list_copy:
         if len(item) > 1:
             add_char(item, board, board_list, char, modified_list)
-            win(modified_list, char)
+            check_win(modified_list, char)
             
 def add_char(item, board, board_list, char, modified_list):
     row_no = int(item[0])
@@ -70,7 +71,7 @@ def add_char(item, board, board_list, char, modified_list):
         for j in range(len(board[i])):
             if i == row_no and j == column_no:
                 if board[i][j] != '_':
-                    print('A char already exists on that position')
+                    print('A char already exists on that position, please pick another position')
                     if char == board[i][j]:
                         next(board, board_list, char)
                     else:
@@ -90,25 +91,24 @@ def get_char():
 # insert user input (position of the character) to a copy of the board_list
 def insert_input(pos, board_list):
     board_list_copy = copy.deepcopy(board_list)
-    for i in range(len(board_list_copy)):
-        if i == 0 and pos == '0.0':
-            board_list_copy[i] = '0.0'
-        elif i == 1 and pos == '0.1':
-            board_list_copy[i] = '0.1'
-        elif i == 2 and pos == '0.2':
-            board_list_copy[i] = '0.2'
-        elif i == 3 and pos == '1.0':
-            board_list_copy[i] = '1.0'
-        elif i == 4 and pos == '1.1':
-            board_list_copy[i] = '1.1'
-        elif i == 5 and pos == '1.2':
-            board_list_copy[i] = '1.2'
-        elif i == 6 and pos == '2.0':
-            board_list_copy[i] = '2.0'
-        elif i == 7 and pos == '2.1':
-            board_list_copy[i] = '2.1'
-        elif i == 8 and pos == '2.2':
-            board_list_copy[i] = '2.2'
+    if pos == '0.0':
+        board_list_copy[0] = pos
+    elif pos == '0.1':
+        board_list_copy[1] = pos
+    elif pos == '0.2':
+        board_list_copy[2] = pos
+    elif pos == '1.0':
+        board_list_copy[3] = pos
+    elif pos == '1.1':
+        board_list_copy[4] = pos
+    elif pos == '1.2':
+        board_list_copy[5] = pos
+    elif pos == '2.0':
+        board_list_copy[6] = pos
+    elif pos == '2.1':
+        board_list_copy[7] = pos
+    elif pos == '2.2':
+        board_list_copy[8] = pos
     return board_list_copy
 
 def switch_turn(board, board_list, char):
@@ -117,7 +117,6 @@ def switch_turn(board, board_list, char):
     else:
         char = 'X' 
     next(board, board_list, char)
-
 
 # main function
 def next(board, board_list, char):
