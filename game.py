@@ -20,6 +20,7 @@ board  = [
 
 char = ''
 
+# winning lines
 def win(board_list, char):
     lines = [
         [0, 1, 2],
@@ -32,7 +33,7 @@ def win(board_list, char):
         [0, 4, 8],
     ]
 
-    # check if line is the winning line
+    # check if there is a winning line
     for i in range(len(lines)):
         [a, b, c] = lines[i]
 
@@ -51,7 +52,7 @@ def win(board_list, char):
         # or switch player and continue
         switch_turn(board_list, char)
 
-# modify the board list to include 'X' or 'O' depending on the user input coords
+# modify the board list to include 'X' or 'O' on the user defined position on the board
 def add_char(board, board_list_copy, char):
     modified_list = []
     for item in board_list_copy:
